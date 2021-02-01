@@ -1,5 +1,7 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import _ from 'lodash'
 import Axios from 'axios'
+import { selectedComponentData, ContainerData } from '@/types/models/guiEditor'
 
 function getResouceType(url: string) {
   const jsReg = /\.js$/
@@ -141,4 +143,125 @@ export async function initSubmodules(submodules: string) {
     // 注册antd组件
     use(_antdComponents, '') */
   }
+}
+
+export function getHetu(path: string[] | string, defaultValue?: any) {
+  return _.get(window.hetu, path, defaultValue)
+}
+
+export function isContainerTypeValid(type: string) {
+  const allowContainers = getHetu('allowContainers', [])
+  return allowContainers.indexOf(type) !== -1
+}
+
+/**
+ * 获取GUI容器信息
+ * @param elementConfig
+ * @param path
+ */
+export function getContainerFromElementConfig(
+  elementConfig: any,
+  path: string
+): ContainerData | false {
+  if (!_.isPlainObject(elementConfig)) return false
+
+  if (isContainerTypeValid(elementConfig.type)) {
+    return {
+      type: elementConfig.type,
+      path
+    }
+  }
+
+  const children = elementConfig.children
+  if (Array.isArray(children)) {
+    for (let i = 0; i < children.length; i++) {
+      const result = getContainerFromElementConfig(
+        children[i] as any,
+        `${path}.children[${i}]`
+      )
+      if (result && isContainerTypeValid(result.type)) return result
+    }
+  }
+
+  return false
+}
+
+/**
+ * 从选中的组件中, 获取当前的容器类型
+ */
+export function getContainerFromSelectedComponent(
+  pageConfig: any,
+  data: selectedComponentData
+) {
+  if (_.isPlainObject(data)) {
+    // 从当前选中的组件中获取容器
+    const { dataComponentType, dataPageConfigPath } = data
+    console.log(
+      dataComponentType,
+      dataPageConfigPath,
+      isContainerTypeValid(dataComponentType)
+    )
+    if (isContainerTypeValid(dataComponentType)) {
+      return {
+        type: dataComponentType,
+        path: dataPageConfigPath
+      }
+    }
+
+    // 从父级路径获取
+    const targetStr = '.props'
+    const propsReg = new RegExp('.props', 'g')
+
+    const results = []
+    while (propsReg.exec(dataPageConfigPath) != null) {
+      results.unshift(propsReg.lastIndex - targetStr.length)
+    }
+
+    for (const item of results) {
+      const parentPath = dataPageConfigPath.slice(0, item)
+      const parentType = _.get(pageConfig, `${parentPath}.type`)
+      const isValidComponentType = getHetu('isValidComponentType')
+      if (isValidComponentType(parentType)) {
+        return {
+          type: parentType,
+          path: parentPath
+        }
+      }
+    }
+  }
+
+  // 获取默认容器类型
+  const elementConfig = _.get(pageConfig, 'elementConfig')
+  const result = getContainerFromElementConfig(elementConfig, 'elementConfig')
+  if (result === false) {
+    console.error(
+      `页面没有检测到可编辑容器, 可添加容器为 ${JSON.stringify(
+        getHetu('allowContainers', [])
+      )}`
+    )
+    return false
+  }
+  return result
+}
+
+export function getContainerData(
+  pageConfig: any,
+  data?: selectedComponentData
+) {
+  const elementConfig = _.get(pageConfig, 'elementConfig')
+
+  if (!elementConfig) return false
+
+  const result = getContainerFromSelectedComponent(pageConfig, data)
+
+  if (result === false) {
+    console.error(
+      `页面没有检测到可编辑容器, 可添加容器为 ${JSON.stringify(
+        getHetu('allowContainers', [])
+      )}`
+    )
+    return false
+  }
+
+  return result
 }

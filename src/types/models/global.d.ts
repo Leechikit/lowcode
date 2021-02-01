@@ -81,3 +81,7 @@ export interface IGlobalState {
   panes?: IPaneItem[]
   activePanekey?: string
 }
+
+export interface DynamicObject {
+  [key: string]: any
+}

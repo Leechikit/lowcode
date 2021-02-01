@@ -7,7 +7,7 @@ const routes: Array<RouteConfig> = [
   {
     path: '/',
     name: 'GuiEditor',
-    component: () => import('@/views/GuiEditor/index.vue')
+    component: () => import('@/views/GuiEditor')
   }
 ]
 
