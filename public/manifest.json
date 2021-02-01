@@ -1,0 +1,11 @@
+{
+  "files": {
+    "index.js": "0.1.0/hetu.umd.production.min.js",
+    "index.min.js": "0.1.0/hetu.umd.production.min.js",
+    "index.css": "0.1.0/index.css"
+  },
+  "entrypoints": [
+    "index.js",
+    "index.css"
+  ]
+}
