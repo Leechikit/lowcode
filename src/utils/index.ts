@@ -151,6 +151,7 @@ export function getHetu(path: string[] | string, defaultValue?: any) {
 
 export function isContainerTypeValid(type: string) {
   const allowContainers = getHetu('allowContainers', [])
+  console.log(allowContainers)
   return allowContainers.indexOf(type) !== -1
 }
 
@@ -163,6 +164,8 @@ export function getContainerFromElementConfig(
   elementConfig: any,
   path: string
 ): ContainerData | false {
+  console.log(elementConfig.type)
+  console.log(isContainerTypeValid(elementConfig.type))
   if (!_.isPlainObject(elementConfig)) return false
 
   if (isContainerTypeValid(elementConfig.type)) {

@@ -8,5 +8,5 @@ const config = {
 }
 
 export function getDefaultSubmodule() {
-  return config[env]
+  return config[env] || 'hetu-plugin'
 }

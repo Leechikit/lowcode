@@ -1,9 +1,3 @@
-import { AnyAction } from 'redux'
-
-export interface action<T = dynamicObject> extends AnyAction {
-  payload: T
-}
-
 export type IProjectDetail = {
   id: 0
   name: string
