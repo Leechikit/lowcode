@@ -3,8 +3,11 @@
   color: #fff;
   font-size: 14px;
   width: 100%;
+  overflow: hidden;
+  .el-main {
+    padding: 0;
+  }
 }
-
 .page-guiEditor {
   width: 100vw;
   height: 100vh;

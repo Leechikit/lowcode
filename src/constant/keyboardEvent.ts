@@ -28,7 +28,7 @@ export const eventKeyCode = {
   // 按键s
   s: 83,
   // 按键k
-  k: 75,
+  k: 75
 }
 
 export const eventCommand = {}
@@ -72,44 +72,47 @@ const commandAll: Command = {
     save: {
       keyAlias: 's',
       metaKey: true,
-      desc: 'command + s',
+      desc: 'command + s'
     },
     // 切换
     shift: {
       keyAlias: 'k',
       shiftKey: true,
       metaKey: true,
-      desc: 'command + shift + k',
+      desc: 'command + shift + k'
     },
     // 按下enter
     enter: {
       keyAlias: 'enter',
-      desc: 'enter',
-    },
+      desc: 'enter'
+    }
   },
   mac: {
     save: {
       keyAlias: 's',
       ctrlKey: true,
-      desc: 'ctrl + s',
+      desc: 'ctrl + s'
     },
     shift: {
       ctrlKey: true,
       shiftKey: true,
-      desc: 'ctrl + shift',
+      desc: 'ctrl + shift'
     },
     // 按下enter
     enter: {
       keyAlias: 'enter',
-      desc: 'enter',
-    },
-  },
+      desc: 'enter'
+    }
+  }
 }
 
-export let command = isMac ? commandAll.mac : commandAll.window
+export const command = isMac ? commandAll.mac : commandAll.window
 
-export function isKeyboardEvent(e: KeyboardEvent | React.KeyboardEvent, type: CommandType) {
-  let _command = _.get(command, type)
+export function isKeyboardEvent(
+  e: KeyboardEvent | React.KeyboardEvent,
+  type: CommandType
+) {
+  const _command = _.get(command, type)
 
   if (!_.isPlainObject(_command)) {
     throw new Error(`${type} is not exist`)
@@ -117,14 +120,14 @@ export function isKeyboardEvent(e: KeyboardEvent | React.KeyboardEvent, type: Co
 
   const { keyAlias } = _command
   if (keyAlias) {
-    let keyCode = getKeyCode(keyAlias)
+    const keyCode = getKeyCode(keyAlias)
 
     if (keyCode !== e.keyCode) {
       return false
     }
   }
 
-  for (let k of ['ctrlKey', 'shiftKey', 'altKey', 'metaKey']) {
+  for (const k of ['ctrlKey', 'shiftKey', 'altKey', 'metaKey']) {
     if (_.get(e, k) !== !!_.get(_command, k)) {
       return false
     }

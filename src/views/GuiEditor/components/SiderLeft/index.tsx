@@ -4,9 +4,10 @@ import { isElementConfig } from '@/utils/valid'
 import { emitter } from '@/utils/events'
 import { TheSiderLeftProps } from './interface'
 import _ from 'lodash'
+import './index.scss'
 
 @Component
-export default class TheContent extends Vue {
+export default class TheSiderLeft extends Vue {
   @Prop({
     default: () => {
       return {}
@@ -84,7 +85,7 @@ export default class TheContent extends Vue {
     })
 
     const insertItemPageConfigPath = `${insertPath}[${insertIndex}]`
-    console.log(insertItemPageConfigPath)
+
     emitter.emit('highlightComponent', insertItemPageConfigPath)
 
     emitter.emit('clickThroughByPageConfigPath', insertItemPageConfigPath)
@@ -125,7 +126,7 @@ export default class TheContent extends Vue {
       if (!_.isArray(options)) return null
       return options.map((option, i) => {
         return (
-          <div key={`${i}`} className="component-button">
+          <div key={`${i}`} class="component-button">
             <el-button
               size="small"
               icon={option.icon}
@@ -148,9 +149,9 @@ export default class TheContent extends Vue {
         if (_.isArray(item.options)) {
           const Options = renderOptions(item.options, key)
           children.push(
-            <div className="property-wrapper" key={`property-wrapper-${i}`}>
-              {<div className="property-title">{item.title}</div>}
-              <div className="property-content">{Options}</div>
+            <div class="property-wrapper" key={`property-wrapper-${i}`}>
+              {<div class="property-title">{item.title}</div>}
+              <div class="property-content">{Options}</div>
             </div>
           )
         }
@@ -160,10 +161,10 @@ export default class TheContent extends Vue {
           const OptionGroup = item.optionGroups.map((group: any, i: number) => {
             return (
               <div
-                className="property-wrapper property-options-group"
+                class="property-wrapper property-options-group"
                 key={`property-options-group-${i}`}>
-                <div className="property-title">{`${item.title}-${group.title}`}</div>
-                <div className="property-content">
+                <div class="property-title">{`${item.title}-${group.title}`}</div>
+                <div class="property-content">
                   {renderOptions(group.options, key)}
                 </div>
               </div>
@@ -178,8 +179,8 @@ export default class TheContent extends Vue {
 
   render() {
     return (
-      <div className="the-sider-left">
-        <div className="edit-drawer">{this.renderDrawer()}</div>
+      <div class="the-sider-left">
+        <div class="edit-drawer">{this.renderDrawer()}</div>
       </div>
     )
   }
