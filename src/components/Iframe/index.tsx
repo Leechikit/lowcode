@@ -7,7 +7,7 @@ export default class TheSiderLeft extends Vue {
   @Prop(String) src!: string
   @Prop(Function) loadCallback?: Function
   @Prop(Function) getRef?: Function
-  @Prop(Function) onKeydown?: Function
+  @Prop(Function) keydownCallback?: Function
 
   private iframe?:HTMLIFrameElement
 
@@ -17,21 +17,21 @@ export default class TheSiderLeft extends Vue {
       this.getRef(this.iframe)
     }
 
-    if (this.iframe && _.isFunction(this.onKeydown)) {
+    if (this.iframe && _.isFunction(this.keydownCallback)) {
       const iframeWinow = this.iframe.contentWindow
-      iframeWinow && iframeWinow.addEventListener('keydown', this.onKeydown)
+      iframeWinow && iframeWinow.addEventListener('keydown', this.keydownCallback)
     }
   }
 
   destoryed() {
-    if (this.iframe  && _.isFunction(this.onKeydown)) {
+    if (this.iframe  && _.isFunction(this.keydownCallback)) {
       const iframeWinow = this.iframe.contentWindow
-      iframeWinow && iframeWinow.removeEventListener('keydown', this.onKeydown)
+      iframeWinow && iframeWinow.removeEventListener('keydown', this.keydownCallback)
     }
   }
 
   render() {
-    const { src, onKeydown, loadCallback, getRef, ...otherProps } = this.$props
+    const { src, keydownCallback, loadCallback, getRef, ...otherProps } = this.$props
     return (
       <iframe
         ref="iframe"
