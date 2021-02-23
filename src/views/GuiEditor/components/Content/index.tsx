@@ -57,7 +57,7 @@ export default class TheContent extends Vue {
 
   private iframe: HTMLIFrameElement
 
-  private $el: HTMLDivElement
+  private $element: HTMLDivElement
 
   onIframeLoad(e: Event) {
     const iframeDocument = _.get(this.iframe, 'contentWindow.document')
@@ -105,7 +105,7 @@ export default class TheContent extends Vue {
       <div
         className="the-gui-content"
         style={stageStyle}
-        ref={el => (this.$el = el)}>
+        ref={el => (this.$element = el)}>
         <BaseIframe
           getRef={c => {
             this.iframe = c
