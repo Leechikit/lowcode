@@ -7,7 +7,7 @@ export default class Stage extends Vue {
   @Prop(Function) mouseMoveCallback!: Function
   @Prop(Function) mouseLeaveCallback!: Function
   @Prop(Function) clickCallback!: Function
-  @Prop(Object) style?: {}
+  @Prop(Object) stageStyle?: {}
 
   private $stage?: HTMLElement
 
@@ -27,7 +27,7 @@ export default class Stage extends Vue {
   }
 
   render() {
-    const { style, clickCallback } = this.$props
+    const { stageStyle, clickCallback } = this.$props
     const { selectedComponentData } = this.$store.state.guiEditor
 
     const type = _.get(selectedComponentData, 'dataComponentType')
@@ -35,7 +35,7 @@ export default class Stage extends Vue {
       <div
         ref="theStageWrap"
         class="the-stage-wrap"
-        style={style}
+        style={stageStyle}
         onClick={clickCallback}></div>
     )
   }

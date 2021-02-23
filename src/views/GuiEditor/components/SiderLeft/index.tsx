@@ -3,6 +3,7 @@ import { getContainerData, getHetu } from '@/utils'
 import { isElementConfig } from '@/utils/valid'
 import { emitter } from '@/utils/events'
 import { TheSiderLeftProps } from './interface'
+import { command } from '@/constant/keyboardEvent'
 import _ from 'lodash'
 import './index.scss'
 
@@ -92,6 +93,20 @@ export default class TheSiderLeft extends Vue {
 
     return true
   }
+
+  // 锁屏
+  onLockBtnClick = (isLockIframe: boolean) => {
+    let { activeTab } = this.$store.state.guiEditor
+
+    if (!isLockIframe) {
+      activeTab = 'base'
+    }
+    this.$store.commit('guiEditor/setState', {
+      isLockIframe,
+      activeTab
+    })
+  }
+
   /**
    * 渲染选择面板
    */
@@ -178,9 +193,32 @@ export default class TheSiderLeft extends Vue {
   }
 
   render() {
+    const { isLockIframe } = this.$store.state.guiEditor
+
     return (
       <div class="the-sider-left">
         <div class="edit-drawer">{this.renderDrawer()}</div>
+        <div class="button-group">
+          <a
+            onClick={() => this.onLockBtnClick(!isLockIframe)}
+            target="_blank"
+            class="button">
+            {isLockIframe && (
+              <el-tooltip
+                content={`${command.shift.desc} 切换到预览模式`}
+                placement="right">
+                <i class="el-icon-lock" style={{ fontSize: '18px' }} />
+              </el-tooltip>
+            )}
+            {!isLockIframe && (
+              <el-tooltip
+                content={`${command.shift.desc} 切换到编辑模式`}
+                placement="right">
+                <i class="el-icon-unlock" style={{ fontSize: '18px' }} />
+              </el-tooltip>
+            )}
+          </a>
+        </div>
       </div>
     )
   }

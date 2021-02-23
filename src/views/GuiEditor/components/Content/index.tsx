@@ -214,7 +214,7 @@ export default class TheContent extends Vue {
         />
         {this.isLockIframe && (
           <TheStage
-            style={stageStyle}
+            stageStyle={stageStyle}
             mouseMoveCallback={this.onStageMouseMove()}
             mouseLeaveCallback={this.onStageMouseLeave()}
             clickCallback={this.onStageClick}
