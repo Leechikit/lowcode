@@ -3,11 +3,19 @@ import VueRouter, { RouteConfig } from 'vue-router'
 
 Vue.use(VueRouter)
 
-const routes: Array<RouteConfig> = [
+export const routes: Array<RouteConfig> = [
   {
-    path: '/',
+    path: '/guiedit',
     name: 'GuiEditor',
     component: () => import('@/views/GuiEditor')
+  },
+  {
+    path: '/project/:project_code/:page_code',
+    name: 'Home',
+    component: () => import('@/views/Home'),
+    props: route => ({
+      history: route.path
+    })
   }
 ]
 

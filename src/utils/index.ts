@@ -3,6 +3,22 @@ import _ from 'lodash'
 import Axios from 'axios'
 import { selectedComponentData, ContainerData } from '@/types/models/guiEditor'
 
+export function getWebType() {
+  // 当前页面的父级页面类型, 可选值有iframe、编辑器、未知
+  let parentType
+  try {
+    parentType = window.self !== window.top ? 'iframe' : undefined
+
+    if (window.parent.$$isEditor) {
+      parentType = 'editor'
+    }
+  } catch (e) {
+    console.log(e)
+  }
+
+  return parentType
+}
+
 function getResouceType(url: string) {
   const jsReg = /\.js$/
   const cssReg = /\.css$/
