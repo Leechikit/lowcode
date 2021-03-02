@@ -4,12 +4,12 @@ import './index.scss'
 
 @Component
 export default class Stage extends Vue {
-  @Prop(Function) mouseMoveCallback!: Function
-  @Prop(Function) mouseLeaveCallback!: Function
-  @Prop(Function) clickCallback!: Function
+  @Prop(Function) mouseMoveCallback!:  (this: HTMLElement, ev: MouseEvent) => any
+  @Prop(Function) mouseLeaveCallback!:  (this: HTMLElement, ev: MouseEvent) => any
+  @Prop(Function) clickCallback!:  (this: HTMLElement, ev: MouseEvent) => any
   @Prop(Object) stageStyle?: {}
 
-  private $stage?: HTMLElement
+  private $stage?: any
 
   mounted() {
     this.$stage = this.$refs.theStageWrap

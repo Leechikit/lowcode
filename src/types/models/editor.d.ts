@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/class-name-casing */
 
 export type DataComponentType = any
 export interface reac {
@@ -26,7 +27,7 @@ export interface dataPropsConfig {
 }
 
 export interface selectedComponentData {
-  parentNode: Node
+  parentNode: Node | null
   reac: reac
   dataPageConfigPath: string
   dataComponentType: DataComponentType

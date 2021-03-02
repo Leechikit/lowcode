@@ -108,10 +108,11 @@ const commandAll: Command = {
 
 export const command = isMac ? commandAll.mac : commandAll.window
 
-export function isKeyboardEvent(
-  e: KeyboardEvent | React.KeyboardEvent,
-  type: CommandType
-) {
+function getKeyCode(v: CommonKey) {
+  return _.get(eventKeyCode, v)
+}
+
+export function isKeyboardEvent(e: KeyboardEvent, type: CommandType) {
   const _command = _.get(command, type)
 
   if (!_.isPlainObject(_command)) {
@@ -134,8 +135,4 @@ export function isKeyboardEvent(
   }
 
   return true
-}
-
-function getKeyCode(v: CommonKey) {
-  return _.get(eventKeyCode, v)
 }

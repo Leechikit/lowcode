@@ -10,7 +10,7 @@ const feedbackSubmit = (params: dynamicObject) => {
 
 function isPaneItem(obj: any) {
   if (_.isPlainObject(obj)) {
-    const { key, title, closable, content } = obj
+    const { key, title, closable } = obj
     if (_.isString(key) && _.isString(title) && _.isBoolean(closable)) {
       return true
     }
@@ -57,14 +57,14 @@ export default {
         ...payload
       }
     },
-    addPane(state: IGlobalState, payload: IPaneItem[]) {
+    addPane(state: IGlobalState, payload: IPaneItem) {
       if (!isPaneItem(payload)) {
         throw new TypeError(`payload:${payload} is not an IPaneItem`)
       }
       const isExist = state.panes.some(v => v.key === payload.key)
       if (isExist) return
 
-      state.panes = [...state.panes, ...payload]
+      state.panes = [...state.panes, payload]
     }
   },
   actions: {
@@ -125,7 +125,7 @@ export default {
       if (!pathname) {
         throw new TypeError('getAsyncPageDetail 必须传递pathname 参数 ')
       }
-      const result = await Api.Page.getAsyncPageDetail(pathname)
+      const result = await Api.Page.getAsyncPageDetail()
 
       if (!_.get(result, 'pageConfig.route')) {
         throw new TypeError(

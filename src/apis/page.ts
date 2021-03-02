@@ -3,6 +3,7 @@ import queryString from 'query-string'
 import request from '@/utils/request'
 import { isPageConfig } from '@/utils/valid'
 
+// eslint-disable-next-line @typescript-eslint/interface-name-prefix
 interface IPageCache {
   [path: string]: any
 }
@@ -53,6 +54,7 @@ export default class Page {
     const createUcid = +_.get(res, 'data.page.create_ucid')
 
     if (content) {
+      // eslint-disable-next-line no-useless-catch
       try {
         pageConfig = JSON.parse(content)
       } catch (e) {

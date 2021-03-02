@@ -15,6 +15,8 @@ export function isElementConfig(v: any): boolean {
   if (isString(type) && isPlainObject(props)) {
     return true
   }
+
+  return false
 }
 
 export function isPageConfig(v: any): boolean {

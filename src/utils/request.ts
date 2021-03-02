@@ -1,4 +1,4 @@
-import Axios, { AxiosRequestConfig } from 'axios'
+import Axios, { AxiosRequestConfig, Method } from 'axios'
 import { Message } from 'element-ui'
 import { merge } from 'lodash'
 import { isString, isPlainObject, toNumber } from 'lodash'
@@ -52,7 +52,7 @@ export const request = (url: string, options: RequestConfig) => {
 
   return Axios(config)
     .then(res => {
-      let { data } = res
+      const { data } = res
 
       if (data.status !== undefined) {
         data.code = data.status
@@ -102,7 +102,12 @@ export const request = (url: string, options: RequestConfig) => {
 
 // 方法不完美, 配置麻烦, 直接使用request
 export const get = (url: string, params = {}, config = {}) => {
-  const options = Object.assign({}, { params }, { method: 'get' }, config)
+  const options = Object.assign(
+    {},
+    { params },
+    { method: 'get' as Method },
+    config
+  )
   return request(url, options)
 }
 
@@ -111,7 +116,7 @@ export const post = (url: string, params = {}, config = {}) => {
   const options = Object.assign(
     {},
     { data: params },
-    { method: 'post' },
+    { method: 'POST' as Method },
     config
   )
   return request(url, options)

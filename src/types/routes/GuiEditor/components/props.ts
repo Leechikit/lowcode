@@ -1,4 +1,7 @@
-import { InterfaceProperty, InterfaceEditConfig } from '~/types/components/interfaceEditConfig'
+import {
+  InterfaceProperty,
+  InterfaceEditConfig
+} from '@/types/components/interfaceEditConfig'
 
 type TypeSelectedComponentData = {
   dataComponentConfig: InterfaceEditConfig
@@ -96,7 +99,7 @@ export {
   TypePageConfig,
   TypeEditConfigMap,
   TypeForm,
-  InterfaceGuiEditorProps,
+  InterfaceGuiEditorProps
 }
 
 export default InterfaceGuiEditorProps

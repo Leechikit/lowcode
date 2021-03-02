@@ -2,7 +2,7 @@ import { Component, Prop, Vue } from 'vue-property-decorator'
 import { getContainerData, getHetu } from '@/utils'
 import { isElementConfig } from '@/utils/valid'
 import { emitter } from '@/utils/events'
-import { TheSiderLeftProps } from './interface'
+import { TheSiderLeftProps, Option } from './interface'
 import { command } from '@/constant/keyboardEvent'
 import _ from 'lodash'
 import './index.scss'
@@ -73,16 +73,13 @@ export default class TheSiderLeft extends Vue {
     const newPageConfig = _.set(pageConfig, insertPath, insertTarget)
 
     // 关闭插入模式
-    await this.props.dispatch({
+    await this.$store.dispatch({
       type: 'guiEditor/finishInsertItemMode'
     })
     // 更新页面配置
-    await this.props.dispatch({
-      type: 'guiEditor/updatePageConfigAndIframe',
-      payload: {
-        key: null,
-        value: newPageConfig
-      }
+    await this.$store.dispatch('guiEditor/updatePageConfigAndIframe', {
+      key: null,
+      value: newPageConfig
     })
 
     const insertItemPageConfigPath = `${insertPath}[${insertIndex}]`

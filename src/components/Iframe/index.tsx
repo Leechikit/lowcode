@@ -9,7 +9,7 @@ export default class TheSiderLeft extends Vue {
   @Prop(Function) getRef?: Function
   @Prop(Function) keydownCallback?: Function
 
-  private iframe?:HTMLIFrameElement
+  private iframe?: any
 
   mounted() {
     this.iframe = this.$refs.iframe

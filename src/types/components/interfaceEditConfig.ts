@@ -1,4 +1,4 @@
-import { ColProps } from 'antd/lib/col'
+// import { ColProps } from 'antd/lib/col'
 
 export interface properties {
   [datakey: string]: InterfaceSubProperty
@@ -27,7 +27,7 @@ export interface InterfaceSubProperty {
   /**
    * 属性描述, 作为问号出现在属性左侧, 用于提示用户该属性的含义
    */
-  desc?: string | React.ReactNode
+  desc?: string
   /**
    * 文档地址
    */
@@ -79,7 +79,7 @@ export interface InterfaceSubProperty {
   /**
    * 枚举值允许的值列表
    */
-  enumList?: Array<React.ReactText>
+  enumList?: Array<string | number>
   /**
    * 枚举值对应的解释, 和枚举值一一对应
    */
@@ -106,9 +106,9 @@ export interface InterfaceSubProperty {
   // 当前输入框的高度
   height?: number
 
-  labelCol?: ColProps
+  labelCol?: object
 
-  wrapperCol?: ColProps
+  wrapperCol?: object
 
   demo?: string
 }

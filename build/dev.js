@@ -4,7 +4,7 @@ const baseConfig = require('./base')
 module.exports = merge(baseConfig, {
   devServer: {
     proxy: {
-      '/': {
+      '/api': {
         target: 'http://10.50.208.213:9009/',
         changeOrigin: true
       }

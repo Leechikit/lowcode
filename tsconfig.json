@@ -2,7 +2,7 @@
   "compilerOptions": {
     "target": "esnext",
     "module": "esnext",
-    "strict": true,
+    // "strict": true,
     "jsx": "preserve",
     "importHelpers": true,
     "moduleResolution": "node",
@@ -28,11 +28,10 @@
     ]
   },
   "include": [
+    "typings.d.ts",
     "src/**/*.ts",
     "src/**/*.tsx",
-    "src/**/*.vue",
-    "tests/**/*.ts",
-    "tests/**/*.tsx"
+    "src/**/*.vue"
   ],
   "exclude": [
     "node_modules"

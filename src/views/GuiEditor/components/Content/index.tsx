@@ -50,9 +50,9 @@ export default class TheContent extends Vue {
 
   private interval: any
 
-  private iframe: HTMLIFrameElement
+  private iframe: any
 
-  private $element: HTMLDivElement
+  private $element: any
 
   private lastCalculationTime: Date = new Date()
 
@@ -205,19 +205,25 @@ export default class TheContent extends Vue {
     return (
       <div class="the-gui-content" style={stageStyle} ref="theGuiContent">
         <BaseIframe
-          getRef={c => {
-            this.iframe = c
+          {...{
+            props: {
+              src: iframeSrc,
+              loadCallback: this.onIframeLoad,
+              keydownCallback: this.onKeyDown,
+              getRef: (c: any) => {
+                this.iframe = c
+              }
+            }
           }}
-          src={iframeSrc}
-          loadCallback={this.onIframeLoad}
-          keydownCallback={this.onKeyDown}
         />
         {this.isLockIframe && (
           <TheStage
-            stageStyle={stageStyle}
-            mouseMoveCallback={this.onStageMouseMove()}
-            mouseLeaveCallback={this.onStageMouseLeave()}
-            clickCallback={this.onStageClick}
+            props= {{
+              stageStyle: stageStyle,
+              mouseMoveCallback: this.onStageMouseMove(),
+              mouseLeaveCallback: this.onStageMouseLeave(),
+              clickCallback: this.onStageClick
+            }}
           />
         )}
       </div>
